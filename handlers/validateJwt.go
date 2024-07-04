@@ -3,6 +3,8 @@ package handlers
 import (
 	"bytes"
 	"errors"
+	"oauth2-go/cache"
+	"oauth2-go/config"
 
 	"crypto"
 	"crypto/rsa"
@@ -17,9 +19,6 @@ import (
 
 	"math/big"
 	"time"
-
-	"github.com/IntuitDeveloper/OAuth2-Go/cache"
-	"github.com/IntuitDeveloper/OAuth2-Go/config"
 
 	"strings"
 )
@@ -95,13 +94,13 @@ func ValidateIDToken(idToken string) bool {
 
 		//check if keys[0] belongs to the right kid
 		headerKid := header.KID
-        key, err := getKeyByKeyID(jwksResponse.KEYS, headerKid)
+		key, err := getKeyByKeyID(jwksResponse.KEYS, headerKid)
 
-        if err != nil {
-		    log.Fatalln("no keys found for the header ", err)
+		if err != nil {
+			log.Fatalln("no keys found for the header ", err)
 			return false
-        }
-        //get the exponent (e) and modulo (n) to form the PublicKey
+		}
+		//get the exponent (e) and modulo (n) to form the PublicKey
 		e := key.E
 		n := key.N
 
@@ -202,10 +201,10 @@ func verify(signature, data []byte, pubKey *rsa.PublicKey) error {
 func getKeyByKeyID(a []Keys, tknkid string) (Keys, error) {
 
 	for i := 0; i < len(a); i++ {
-        if a[i].KID == tknkid {
+		if a[i].KID == tknkid {
 			return a[i], nil
 		}
-    }
+	}
 
 	err := errors.New("Token is not valid, kid from token and certificate don't match")
 	var b Keys

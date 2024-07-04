@@ -5,9 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
-	"github.com/IntuitDeveloper/OAuth2-Go/cache"
-	"github.com/IntuitDeveloper/OAuth2-Go/config"
+	"oauth2-go/cache"
+	"oauth2-go/config"
 )
 
 /*

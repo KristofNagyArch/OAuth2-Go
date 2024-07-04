@@ -3,9 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-
-	"github.com/IntuitDeveloper/OAuth2-Go/config"
-	"github.com/IntuitDeveloper/OAuth2-Go/handlers"
+	"oauth2-go/config"
+	"oauth2-go/handlers"
 )
 
 func main() {
@@ -20,13 +19,15 @@ func main() {
 	http.Handle("/connected/", http.StripPrefix("/connected/", http.FileServer(http.Dir("static/connected/"))))
 
 	//register handler routes
+	http.HandleFunc("/oauth2redirect", handlers.CallBackFromOAuth)
+	http.HandleFunc("/connectToQuickbooks", handlers.ConnectToQuickbooks)
+	http.HandleFunc("/getToken", handlers.GetTokenInfo)
+
 	http.HandleFunc("/getCompanyInfo", handlers.GetCompanyInfo)
 	http.HandleFunc("/refreshToken", handlers.RefreshToken)
 	http.HandleFunc("/revokeToken", handlers.RevokeToken)
-	http.HandleFunc("/connectToQuickbooks", handlers.ConnectToQuickbooks)
 	http.HandleFunc("/signInWithIntuit", handlers.SignInWithIntuit)
 	http.HandleFunc("/getAppNow", handlers.GetAppNow)
-	http.HandleFunc("/oauth2redirect", handlers.CallBackFromOAuth)
 
 	//log and start server
 	log.Println("running server on ", config.OAuthConfig.Port)

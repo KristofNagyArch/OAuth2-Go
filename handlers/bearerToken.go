@@ -8,9 +8,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-
-	"github.com/IntuitDeveloper/OAuth2-Go/cache"
-	"github.com/IntuitDeveloper/OAuth2-Go/config"
+	"oauth2-go/cache"
+	"oauth2-go/config"
 )
 
 /*
