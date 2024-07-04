@@ -1,14 +1,12 @@
 package handlers
 
 import (
+	"github.com/google/uuid"
 	"log"
 	"net/http"
 	"net/url"
-
-	"github.com/twinj/uuid"
-
-	"github.com/IntuitDeveloper/OAuth2-Go/cache"
-	"github.com/IntuitDeveloper/OAuth2-Go/config"
+	"oauth2-go/cache"
+	"oauth2-go/config"
 )
 
 /*
@@ -39,7 +37,7 @@ func GetAppNow(w http.ResponseWriter, r *http.Request) {
  * Generates CSRF token
  */
 func GenerateCSRF() string {
-	csrf := uuid.NewV4().String()
+	csrf := uuid.NewString()
 	//add to cache since we need this in callback handler to validate the response
 	cache.AddToCache("csrf", csrf)
 	return csrf
