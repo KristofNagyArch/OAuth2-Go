@@ -6,10 +6,10 @@ import (
 	"os"
 )
 
-//declare global variable and read from config
+// declare global variable and read from config
 var OAuthConfig Config = LoadConfiguration("config.json")
 
-//structure for configs
+// structure for configs
 type Config struct {
 	Port                        string `json:"port"`
 	ClientId                    string `json:"clientId"`
@@ -20,6 +20,11 @@ type Config struct {
 	C2QBScope                   string `json:"c2qbScope"`
 	SIWIScope                   string `json:"siwiScope"`
 	GetAppNowScope              string `json:"getAppNowScope"`
+	CacheAddress                string `json:"cacheAddress"`
+	CacheDatabaseNumber         int    `json:"cacheDatabaseNumber"`
+	CachePoolSize               int    `json:"cachePoolSize"`
+	ApplicationEnvironment      string `json:"applicationEnvironment"`
+	ApplicationName             string `json:"applicationName"`
 	IntuitAuthorizationEndpoint string
 }
 

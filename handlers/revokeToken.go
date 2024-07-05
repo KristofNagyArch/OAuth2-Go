@@ -2,12 +2,14 @@ package handlers
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"net/url"
 	"oauth2-go/cache"
+	"oauth2-go/domain"
 )
 
 /*
@@ -21,6 +23,7 @@ func RevokeToken(w http.ResponseWriter, r *http.Request) {
 
 	//add parameters
 	refreshToken := cache.GetFromCache("refresh_token")
+	refreshToken = domain.RedisRepositoryImpl.FindRefreshTokenByPartnerID(context.Background(), "123")
 	data.Add("token", refreshToken)
 
 	revokeEndpoint := cache.GetFromCache("revocation_endpoint")

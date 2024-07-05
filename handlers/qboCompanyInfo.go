@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"oauth2-go/cache"
 	"oauth2-go/config"
+	"oauth2-go/domain"
 )
 
 /*
@@ -29,6 +31,7 @@ func GetCompanyInfo(w http.ResponseWriter, r *http.Request) {
 	//set header
 	request.Header.Set("accept", "application/json")
 	accessToken := cache.GetFromCache("access_token")
+	accessToken = domain.RedisRepositoryImpl.FindAccessTokenByPartnerID(context.Background(), "123")
 	request.Header.Set("Authorization", "Bearer "+accessToken)
 
 	resp, err := client.Do(request)

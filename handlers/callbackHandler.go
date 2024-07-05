@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"oauth2-go/cache"
+	"oauth2-go/domain"
 )
 
 /*
@@ -35,7 +37,9 @@ func CallBackFromOAuth(w http.ResponseWriter, r *http.Request) {
 		 * Update your Datastore here with user's AccessToken and RefreshToken along with the realmId
 		 */
 		cache.AddToCache("access_token", bearerTokenResponse.AccessToken)
+		domain.RedisRepositoryImpl.StoreAccessTokenToPartnerID(context.Background(), "123", bearerTokenResponse.AccessToken)
 		cache.AddToCache("refresh_token", bearerTokenResponse.RefreshToken)
+		domain.RedisRepositoryImpl.StoreRefreshTokenToPartnerID(context.Background(), "123", bearerTokenResponse.RefreshToken)
 
 		/*
 		 * However, in case of OpenIdConnect, when you request OpenIdScopes during authorization,

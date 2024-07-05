@@ -1,10 +1,11 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
-	"oauth2-go/cache"
+	"oauth2-go/domain"
 )
 
 /*
@@ -12,6 +13,6 @@ import (
  */
 func GetTokenInfo(w http.ResponseWriter, r *http.Request) {
 	log.Println("Entering GetTokenInfo ")
-	accessToken := cache.GetFromCache("access_token")
+	accessToken := domain.RedisRepositoryImpl.FindAccessTokenByPartnerID(context.Background(), "123")
 	fmt.Fprintf(w, accessToken)
 }
